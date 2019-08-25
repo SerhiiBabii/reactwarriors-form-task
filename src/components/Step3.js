@@ -5,7 +5,7 @@ const Step3 = ({ step, avatar, getAvatar, errors }) => {
     <div data-step="3" className={step === 3 ? "step-visible" : "step-hidden"}>
       <img
         className="mb-4 step4__img"
-        src={avatar ? avatar : "./default-avater.jpg"}
+        src={avatar ? avatar : "./default-avatar.jpg"}
         alt="avatar"
       />
       <div className="mb-4">
