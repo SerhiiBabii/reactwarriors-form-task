@@ -11,24 +11,8 @@ const Step1 = ({
   changedInput,
   errors
 }) => {
-  console.dir(gender);
   return (
     <div data-step="1" className={step === 1 ? "step-visible" : "step-hidden"}>
-      {/* <div className="form-group">
-        <label htmlFor="firstname">Firstname</label>
-        <input
-          className="form-control"
-          id="firstname"
-          type="text"
-          name="firstname"
-          placeholder="Enter first name"
-          value={firstname}
-          onChange={changedInput}
-        />
-        {errors.firstname ? (
-          <div className="invalid-feedback">{errors.firstname}</div>
-        ) : null}
-      </div> */}
       <Input
         title="Firstname"
         id="firstname"
@@ -37,7 +21,7 @@ const Step1 = ({
         placeholder="Enter first name"
         value={firstname}
         changedInput={changedInput}
-        errors={errors}
+        errors={errors.firstname}
       />
       <Input
         title="Firstname"
@@ -47,23 +31,8 @@ const Step1 = ({
         placeholder="Enter last name"
         value={lastname}
         changedInput={changedInput}
-        errors={errors}
+        errors={errors.lastname}
       />
-      {/* <div className="form-group">
-        <label htmlFor="lastname">Lastname</label>
-        <input
-          className="form-control"
-          id="lastname"
-          type="text"
-          name="lastname"
-          placeholder="Enter last name"
-          value={lastname}
-          onChange={changedInput}
-        />
-        {errors.lastname ? (
-          <div className="invalid-feedback">{errors.lastname}</div>
-        ) : null}
-      </div> */}
       <Input
         title="Password"
         id="password"
@@ -72,23 +41,8 @@ const Step1 = ({
         placeholder="Enter password"
         value={password}
         changedInput={changedInput}
-        errors={errors}
+        errors={errors.password}
       />
-      {/* <div className="form-group">
-        <label htmlFor="password">Password</label>
-        <input
-          className="form-control"
-          id="password"
-          type="password"
-          name="password"
-          placeholder="Enter password"
-          value={password}
-          onChange={changedInput}
-        />
-        {errors.password ? (
-          <div className="invalid-feedback">{errors.password}</div>
-        ) : null}
-      </div> */}
       <Input
         title="Repeat password"
         name="repeatPassword"
@@ -97,23 +51,8 @@ const Step1 = ({
         placeholder="Enter repeat password"
         value={repeatPassword}
         changedInput={changedInput}
-        errors={errors}
+        errors={errors.repeatPassword}
       />
-      {/* <div className="form-group">
-        <label htmlFor="repeatpassword">Repeat password</label>
-        <input
-          className="form-control"
-          id="repeatpassword"
-          type="password"
-          name="repeatPassword"
-          placeholder="Enter repeat password"
-          value={repeatPassword}
-          onChange={changedInput}
-        />
-        {errors.repeatPassword ? (
-          <div className="invalid-feedback">{errors.repeatPassword}</div>
-        ) : null}
-      </div> */}
       <fieldset className="form-group">
         <div>Gender</div>
         <div className="form-check">

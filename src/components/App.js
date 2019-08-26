@@ -4,24 +4,22 @@ import Step1 from "./Step1";
 import Step2 from "./Step2";
 import Step3 from "./Step3";
 import Step4 from "./Step4";
-
 export default class App extends Component {
   constructor() {
     super();
-
     this.state = {
       step: 1,
       steps: [
         {
           marker: 1,
           title: "Basic",
-          activeClass: false,
-          completedClass: true
+          activeClass: true,
+          completedClass: false
         },
         {
           marker: 2,
           title: "Contacts",
-          activeClass: true,
+          activeClass: false,
           completedClass: false
         },
         {
@@ -47,7 +45,7 @@ export default class App extends Component {
       countryId: 1,
       country: "Ukraine",
       city: "",
-      cityId: "",
+      cityId: 0,
       avatar: "",
       errors: {
         firstname: "",
@@ -63,45 +61,54 @@ export default class App extends Component {
   }
 
   changedInput = e => {
-    console.log(e.target.name, e.target.value);
     this.setState({
       [e.target.name]: e.target.value
     });
   };
 
-  // currentStep = (step, steps) => {
-  //   this.setState(()=>{
-
-  //   }))
-  // }
-
-  nextStep = e => {
-    e.preventDefault();
+  getErrors = () => {
     const errors = {};
+    const patternLogin = /^[a-zA-Z0-9]{5,20}$/;
+    const patternPassword = /(?=^.{5,20}$)(?=.*\d)(?=.*[a-zA-Z]).*$/;
+    const patternEmail = /^[-\w.]+@([A-z0-9][-A-z0-9]+\.)+[A-z]{2,4}$/;
+    const patternMobile = /^[0-9]+$/;
     switch (this.state.step) {
       case 1: {
         if (this.state.firstname.length < 5) {
           errors.firstname = "Must be 5 characters or more";
+        } else if (!patternLogin.test(this.state.firstname)) {
+          errors.firstname = "Must be latin characters and numbers";
         }
+
         if (this.state.lastname.length < 5) {
           errors.lastname = "Must be 5 characters or more";
+        } else if (!patternLogin.test(this.state.lastname)) {
+          errors.lastname = "Must be latin characters and numbers";
         }
+
         if (this.state.password.length < 6) {
           errors.password = "Must be 6 characters or more";
+        } else if (!patternPassword.test(this.state.password)) {
+          errors.password = "Must be latin characters and numbers";
         }
+
         if (this.state.password !== this.state.repeatPassword) {
           errors.repeatPassword = "Must be equal password";
         }
         break;
       }
       case 2: {
-        if (this.state.email.length < 5 /*RegExp*/) {
-          errors.email = "Invalid email address";
+        if (!patternEmail.test(this.state.email)) {
+          errors.email = "Wrong input";
         }
-        if (this.state.mobile.length < 5 /*RegExp*/) {
+
+        if (this.state.mobile.length !== 10) {
+          errors.mobile = "Must be 10 characters";
+        } else if (!patternMobile.test(this.state.mobile)) {
           errors.mobile = "Invalid mobile";
         }
-        if (!this.state.city && this.state.city !== "Select city") {
+
+        if (!this.state.city) {
           errors.city = "Required";
         }
         break;
@@ -113,25 +120,51 @@ export default class App extends Component {
         break;
       }
       default:
-        console.log("default");
+        console.log("You did some wrong.");
     }
+    return errors;
+  };
+
+  nextStep = e => {
+    e.preventDefault();
+    const errors = this.getErrors();
 
     if (Object.keys(errors).length > 0) {
       this.setState({
         errors: errors
       });
     } else {
-      this.setState({
-        step: +this.state.step + 1
+      const copySteps = [...this.state.steps];
+      const nextStep = +this.state.step + 1;
+      const currentStep = this.state.step;
+      const prevStep = this.state.step - 1;
+      copySteps[currentStep].activeClass = true;
+      copySteps[prevStep].activeClass = false;
+      copySteps[prevStep].completedClass = true;
+      this.setState(() => {
+        return {
+          step: nextStep,
+          steps: copySteps,
+          errors: {}
+        };
       });
     }
   };
 
   prevStep = e => {
     e.preventDefault();
+    const copySteps = [...this.state.steps];
+    const prevStep = this.state.step - 1;
+    const currentStep = this.state.step - 2;
+    copySteps[prevStep].activeClass = false;
+    copySteps[currentStep].activeClass = true;
+
     if (this.state.step > 1) {
-      this.setState({
-        step: +this.state.step - 1
+      this.setState(() => {
+        return {
+          steps: copySteps,
+          step: prevStep
+        };
       });
     }
   };
@@ -140,7 +173,54 @@ export default class App extends Component {
     e.preventDefault();
     this.setState({
       step: 1,
-      values: {}
+      steps: [
+        {
+          marker: 1,
+          title: "Basic",
+          activeClass: true,
+          completedClass: false
+        },
+        {
+          marker: 2,
+          title: "Contacts",
+          activeClass: false,
+          completedClass: false
+        },
+        {
+          marker: 3,
+          title: "Avatar",
+          activeClass: false,
+          completedClass: false
+        },
+        {
+          marker: 4,
+          title: "Finish",
+          activeClass: false,
+          completedClass: false
+        }
+      ],
+      firstname: "",
+      lastname: "",
+      password: "",
+      repeatPassword: "",
+      gender: "male",
+      email: "",
+      mobile: "",
+      countryId: 1,
+      country: "Ukraine",
+      city: "",
+      cityId: 0,
+      avatar: "",
+      errors: {
+        firstname: "",
+        lastname: "",
+        password: "",
+        repeatPassword: "",
+        email: "",
+        mobile: "",
+        city: "",
+        avatar: ""
+      }
     });
   };
 
@@ -182,6 +262,7 @@ export default class App extends Component {
       currentCities,
       country,
       city,
+      cityId,
       countryId,
       avatar,
       errors
@@ -207,6 +288,7 @@ export default class App extends Component {
             mobile={mobile}
             countryId={countryId}
             country={country}
+            cityId={cityId}
             currentCities={currentCities}
             errors={errors}
             changedInput={this.changedInput}

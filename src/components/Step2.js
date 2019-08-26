@@ -35,6 +35,7 @@ function Step2({
   email,
   mobile,
   countryId,
+  cityId,
   changedInput,
   errors,
   getNumber,
@@ -48,64 +49,22 @@ function Step2({
         id="email"
         name="email"
         type="text"
-        placeholder="Enter email"
+        placeholder="Enter email ( info@gmail.com )"
         value={email}
         changedInput={changedInput}
-        errors={errors}
+        errors={errors.email}
       />
-      {/* <div className="form-group">
-        <label htmlFor="email">Email</label>
-        <input
-          className="form-control"
-          id="email"
-          type="text"
-          name="email"
-          placeholder="Enter email"
-          value={email}
-          onChange={changedInput}
-        />
-        {errors.email ? (
-          <div className="invalid-feedback">{errors.email}</div>
-        ) : null}
-      </div> */}
+
       <Input
         title="Mobile"
         id="mobile"
         name="mobile"
         type="text"
-        placeholder="Enter mobile"
+        placeholder="Enter mobile ( 0931111111 )"
         value={mobile}
         changedInput={changedInput}
-        errors={errors}
+        errors={errors.mobile}
       />
-      {/* <div className="form-group">
-        <label htmlFor="mobile">Mobile</label>
-        <input
-          className="form-control"
-          id="mobile"
-          type="text"
-          name="mobile"
-          placeholder="Enter mobile"
-          value={mobile}
-          onChange={changedInput}
-        />
-        {errors.mobile ? (
-          <div className="invalid-feedback">{errors.mobile}</div>
-        ) : null}
-      </div> */}
-
-      {/* <div className="form-group">
-        <label htmlFor="country">Country</label>
-        <select
-          className="form-control"
-          name="country"
-          id="country"
-          value={countryId}
-          onChange={getNumber}
-        >
-          {getOption(counties)}
-        </select>
-      </div> */}
 
       <Select
         title="Country"
@@ -115,24 +74,13 @@ function Step2({
         getOption={getOption(counties)}
       />
 
-      {/* <div className="form-group">
-        <label htmlFor="city">City</label>
-        <select
-          className="form-control"
-          name="city"
-          id="city"
-          onChange={getNumberCity}
-        >
-          {getOption(optionCities)}
-        </select>
-      </div> */}
-
       <Select
         title="City"
         id="city"
-        // value={countryId}
+        value={cityId}
         getNumber={getNumberCity}
         getOption={getOption(optionCities)}
+        errors={errors.city}
       />
     </div>
   );

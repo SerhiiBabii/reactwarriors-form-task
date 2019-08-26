@@ -1,6 +1,6 @@
 import React from "react";
 
-const Select = ({ title, id, value, getNumber, getOption }) => {
+const Select = ({ title, id, value, getNumber, getOption, errors }) => {
   return (
     <div className="form-group">
       <label htmlFor={id}>{title}</label>
@@ -13,6 +13,7 @@ const Select = ({ title, id, value, getNumber, getOption }) => {
       >
         {getOption}
       </select>
+      {errors ? <div className="invalid-feedback">{errors}</div> : null}
     </div>
   );
 };

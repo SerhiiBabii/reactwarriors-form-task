@@ -22,9 +22,7 @@ const Input = ({
         value={value}
         onChange={changedInput}
       />
-      {errors.firstname ? (
-        <div className="invalid-feedback">{errors.firstname}</div>
-      ) : null}
+      {errors ? <div className="invalid-feedback">{errors}</div> : null}
     </div>
   );
 };
