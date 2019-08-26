@@ -75,6 +75,10 @@ body {
   background: #f26120;
 }
 
+.step.is-active:not(:first-child):before {
+  background: #f26120;
+}
+
 .step:not(:first-child):before {
   height: 0.2em;
   width: 100%;
